@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Laser Power &amp; Infra IPO — Investor Deck</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root{
+    --bg:#0a1223;
+    --panel:#0f1c33;
+    --panel2:#13243f;
+    --brand:#c8971f;
+    --brand2:#e6bd57;
+    --accent:#e6bd57;
+    --green:#16c784;
+    --red:#ea3943;
+    --text:#eef2f8;
+    --muted:#94a3bd;
+    --border:#1e3253;
+    --shadow:0 20px 60px rgba(0,0,0,.5);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:"Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;
+    background:radial-gradient(1200px 800px at 80% -10%,#183258 0,var(--bg) 55%);
+    color:var(--text);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .logo-img{width:44px;height:44px;border-radius:50%;flex:0 0 auto;object-fit:cover;box-shadow:0 4px 14px rgba(230,189,87,.25);background:#f5efe2}
+  .topnav .brand{text-decoration:none}
+  .presenter{display:inline-flex;align-items:center;gap:14px;background:var(--panel);border:1px solid var(--border);
+    border-radius:999px;padding:8px 18px 8px 8px;text-decoration:none;color:var(--text);transition:.2s;margin-bottom:26px}
+  .presenter:hover{border-color:var(--brand);transform:translateY(-2px)}
+  .presenter img{width:52px;height:52px;border-radius:50%;object-fit:cover;background:#f5efe2}
+  .presenter span{display:flex;flex-direction:column;font-weight:700;font-size:14px;color:var(--muted)}
+  .presenter span b{color:#fff;font-size:16px}
+  .presenter span small{font-size:11px;letter-spacing:2px;color:var(--brand2);text-transform:uppercase}
+  .yt-badge{display:inline-flex;align-items:center;gap:8px;background:#ff0000;color:#fff;font-weight:800;
+    font-size:13px;padding:9px 16px;border-radius:10px;text-decoration:none;margin-left:12px;transition:.2s}
+  .yt-badge:hover{filter:brightness(1.1)}
+  a{color:inherit}
+  /* ---------- Progress + Nav ---------- */
+  .progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--brand),var(--accent));z-index:100;transition:width .15s ease}
+  .topnav{
+    position:fixed;top:0;left:0;right:0;z-index:90;
+    display:flex;align-items:center;gap:18px;
+    padding:14px 34px;
+    backdrop-filter:blur(14px);
+    background:rgba(10,14,23,.72);
+    border-bottom:1px solid var(--border);
+  }
+  .topnav .brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.5px}
+  .topnav .links{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
+  .topnav .links a{
+    font-size:13px;color:var(--muted);text-decoration:none;
+    padding:7px 12px;border-radius:8px;transition:.2s;font-weight:600;
+  }
+  .topnav .links a:hover{color:#fff;background:var(--panel2)}
+  /* ---------- Logo ---------- */
+  .logo-mark{
+    width:40px;height:40px;border-radius:10px;flex:0 0 auto;
+    background:linear-gradient(135deg,var(--brand),#9d0f18);
+    display:grid;place-items:center;box-shadow:0 6px 18px rgba(225,29,42,.4);
+    position:relative;overflow:hidden;
+  }
+  .logo-mark::after{content:"";position:absolute;inset:0;background:
+    linear-gradient(115deg,transparent 40%,rgba(255,255,255,.35) 50%,transparent 60%);}
+  .logo-mark svg{width:24px;height:24px}
+  .logo-word{font-size:18px;font-weight:900;background:linear-gradient(90deg,#fff,#ffd0d3);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .logo-word small{display:block;font-size:9px;font-weight:600;letter-spacing:3px;color:var(--muted);-webkit-text-fill-color:var(--muted)}
+  /* ---------- Sections ---------- */
+  section{padding:96px 34px 60px;max-width:1180px;margin:0 auto;scroll-margin-top:70px}
+  .eyebrow{color:var(--brand2);font-weight:800;letter-spacing:3px;font-size:12px;text-transform:uppercase;margin-bottom:10px}
+  h1{font-size:clamp(34px,6vw,64px);font-weight:900;line-height:1.05;letter-spacing:-1px}
+  h2{font-size:clamp(24px,3.4vw,38px);font-weight:850;margin-bottom:6px;letter-spacing:-.5px}
+  .sub{color:var(--muted);max-width:720px;margin-bottom:34px;font-size:16px}
+  /* ---------- Hero ---------- */
+  .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;position:relative}
+  .hero .big-logo{display:flex;align-items:center;gap:18px;margin-bottom:26px}
+  .hero .big-logo .logo-mark{width:64px;height:64px;border-radius:16px}
+  .hero .big-logo .logo-mark svg{width:38px;height:38px}
+  .hero h1 span{color:var(--brand2)}
+  .tagline{font-size:20px;color:var(--muted);margin-top:16px;max-width:640px}
+  .pill{display:inline-flex;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--border);
+    padding:8px 16px;border-radius:999px;font-size:13px;font-weight:700;margin-top:26px}
+  .pill .dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 4px rgba(22,199,132,.18);animation:pulse 1.6s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(22,199,132,.35)}70%{box-shadow:0 0 0 8px rgba(22,199,132,0)}100%{box-shadow:0 0 0 0 rgba(22,199,132,0)}}
+  .hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:48px}
+  .scroll-hint{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);color:var(--muted);font-size:12px;letter-spacing:2px;text-transform:uppercase;animation:bob 1.8s infinite}
+  @keyframes bob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,8px)}}
+  /* ---------- Cards ---------- */
+  .grid{display:grid;gap:16px}
+  .g4{grid-template-columns:repeat(4,1fr)}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  .card{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--border);border-radius:16px;padding:22px;box-shadow:var(--shadow);transition:.25s;position:relative;overflow:hidden}
+  .card:hover{transform:translateY(-4px);border-color:#2e3d57}
+  .card .k{color:var(--muted);font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase}
+  .card .v{font-size:26px;font-weight:900;margin-top:8px}
+  .card .v.small{font-size:20px}
+  .card .note{color:var(--muted);font-size:12px;margin-top:6px}
+  .accentbar{position:absolute;top:0;left:0;height:100%;width:4px;background:var(--brand)}
+  .card.green .accentbar{background:var(--green)}
+  .card.gold .accentbar{background:var(--accent)}
+  /* ---------- Chart ---------- */
+  .chart-wrap{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--border);border-radius:16px;padding:24px;box-shadow:var(--shadow)}
+  .chart-box{position:relative;height:320px}
+  /* ---------- Timeline ---------- */
+  .timeline{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;position:relative}
+  .tl-step{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:18px 14px;text-align:center;position:relative}
+  .tl-step .num{width:30px;height:30px;border-radius:50%;background:var(--brand);color:#fff;font-weight:800;display:grid;place-items:center;margin:0 auto 10px;font-size:13px}
+  .tl-step .lbl{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;font-weight:700}
+  .tl-step .date{font-size:15px;font-weight:800;margin-top:4px}
+  .tl-step.active{border-color:var(--brand);box-shadow:0 0 0 1px var(--brand),0 12px 30px rgba(225,29,42,.25)}
+  .tl-step.active .lbl{color:var(--brand2)}
+  /* ---------- Subscription bars ---------- */
+  .subrow{display:flex;align-items:center;gap:16px;margin:14px 0}
+  .subrow .name{width:190px;font-weight:700;font-size:14px}
+  .bar{flex:1;height:26px;background:#0c1320;border:1px solid var(--border);border-radius:8px;overflow:hidden;position:relative}
+  .bar > span{display:block;height:100%;border-radius:7px 0 0 7px;background:linear-gradient(90deg,var(--brand),var(--brand2));transition:width 1.2s cubic-bezier(.16,1,.3,1)}
+  .bar .txt{position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:12px;font-weight:800}
+  .subrow.qib .bar>span{background:linear-gradient(90deg,#3b82f6,#60a5fa)}
+  .subrow.nii .bar>span{background:linear-gradient(90deg,var(--accent),#ffd257)}
+  .subrow.rii .bar>span{background:linear-gradient(90deg,var(--green),#3ee6a0)}
+  /* ---------- Verdict ---------- */
+  .verdict{background:linear-gradient(135deg,rgba(22,199,132,.12),rgba(245,179,1,.08));border:1px solid #234b3d;border-radius:20px;padding:34px;box-shadow:var(--shadow)}
+  .verdict .badge{display:inline-flex;align-items:center;gap:10px;background:var(--green);color:#04150d;font-weight:900;padding:10px 20px;border-radius:999px;font-size:16px;letter-spacing:.5px}
+  .verdict h3{font-size:26px;margin:18px 0 8px}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px}
+  .box{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:20px}
+  .box h4{font-size:14px;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+  .box.pro h4{color:var(--green)}
+  .box.con h4{color:var(--red)}
+  .box ul{list-style:none}
+  .box li{padding:7px 0 7px 26px;position:relative;font-size:14px;color:#cdd6e6;border-bottom:1px dashed var(--border)}
+  .box li:last-child{border-bottom:0}
+  .box.pro li::before{content:"✓";position:absolute;left:0;color:var(--green);font-weight:900}
+  .box.con li::before{content:"!";position:absolute;left:0;color:var(--red);font-weight:900}
+  .horizon{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px}
+  .horizon .h-card{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:20px}
+  .horizon .tag{font-size:12px;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:4px 12px;border-radius:999px;display:inline-block;margin-bottom:12px}
+  .tag.short{background:rgba(245,179,1,.15);color:var(--accent)}
+  .tag.long{background:rgba(22,199,132,.15);color:var(--green)}
+  .rating-line{display:flex;gap:6px;flex-wrap:wrap;margin-top:18px}
+  .rt{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:12px 16px;text-align:center;flex:1;min-width:110px}
+  .rt b{display:block;font-size:22px;font-weight:900}
+  .rt.sub b{color:var(--green)} .rt.avoid b{color:var(--red)} .rt.neu b{color:var(--accent)}
+  .rt span{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+  /* ---------- Objects list ---------- */
+  .obj{display:flex;gap:16px;align-items:flex-start;padding:16px;background:var(--panel);border:1px solid var(--border);border-radius:14px;margin-bottom:12px}
+  .obj .ic{width:44px;height:44px;border-radius:12px;background:rgba(225,29,42,.15);color:var(--brand2);display:grid;place-items:center;font-size:20px;flex:0 0 auto}
+  .obj .amt{margin-left:auto;font-weight:900;font-size:18px;color:var(--accent)}
+  /* ---------- what we do ---------- */
+  .simple{font-size:19px;line-height:1.7;color:#dbe3f0}
+  .simple b{color:#fff}
+  .chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+  .chip{background:var(--panel);border:1px solid var(--border);padding:8px 14px;border-radius:999px;font-size:13px;font-weight:700}
+  footer{border-top:1px solid var(--border);padding:34px;text-align:center;color:var(--muted);font-size:13px;margin-top:40px}
+  footer a{color:var(--brand2);text-decoration:none}
+  .disclaimer{max-width:900px;margin:14px auto 0;font-size:11.5px;line-height:1.6}
+  @media(max-width:900px){
+    .g4,.g3{grid-template-columns:repeat(2,1fr)}
+    .g2,.two-col,.horizon{grid-template-columns:1fr}
+    .timeline{grid-template-columns:repeat(2,1fr)}
+    .hero-stats{grid-template-columns:repeat(2,1fr)}
+    .subrow .name{width:120px;font-size:12px}
+    .topnav .links{display:none}
+  }
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+
+<!-- NAV -->
+<nav class="topnav">
+  <a class="brand" href="https://www.youtube.com/@TheSalariedInvestorYT" target="_blank" rel="noopener noreferrer">
+    <img class="logo-img" src="../../logo.png" alt="The Salaried Investor logo" />
+    <div class="logo-word">The Salaried Investor<small>WEALTH JOURNEY</small></div>
+  </a>
+  <div class="links">
+    <a href="../../">🏠 Home</a>
+    <a href="../">IPOs</a>
+    <a href="#overview">Overview</a>
+    <a href="#business">Business</a>
+    <a href="#financials">Financials</a>
+    <a href="#timeline">Timeline</a>
+    <a href="#subscription">Subscription</a>
+    <a href="#gmp">GMP</a>
+    <a href="#kpi">KPIs</a>
+    <a href="#verdict">Verdict</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <a class="presenter" href="https://www.youtube.com/@TheSalariedInvestorYT" target="_blank" rel="noopener noreferrer">
+    <img src="../../logo.png" alt="The Salaried Investor logo" />
+    <span>Presented by <b>The Salaried Investor</b><small>Wealth Journey</small></span>
+  </a>
+  <div class="eyebrow">Mainboard IPO · BSE &amp; NSE</div>
+  <h1>Laser Power &amp; Infra <span>IPO</span><br/>Investor Snapshot</h1>
+  <p class="tagline">A 37-year-old Kolkata-based maker of power cables &amp; conductors, now also an EPC player electrifying rural &amp; urban India.</p>
+  <div style="display:flex;align-items:center;flex-wrap:wrap;gap:6px">
+    <span class="pill"><span class="dot"></span> LIVE · Bidding closes Mon, 13 Jul 2026</span>
+    <a class="yt-badge" href="https://www.youtube.com/@TheSalariedInvestorYT" target="_blank" rel="noopener noreferrer">▶ Subscribe on YouTube</a>
+  </div>
+
+  <div class="hero-stats">
+    <div class="card"><div class="accentbar"></div><div class="k">Issue Size</div><div class="v">₹742 Cr</div><div class="note">Fresh ₹542 Cr + OFS ₹200 Cr</div></div>
+    <div class="card gold"><div class="accentbar"></div><div class="k">Price Band</div><div class="v">₹203–214</div><div class="note">Face value ₹5</div></div>
+    <div class="card green"><div class="accentbar"></div><div class="k">GMP (10 Jul)</div><div class="v">₹24 <span style="font-size:13px;color:var(--green)">▲11%</span></div><div class="note">Est. listing ≈ ₹238</div></div>
+    <div class="card"><div class="accentbar"></div><div class="k">Min. Investment</div><div class="v">₹14,980</div><div class="note">1 lot = 70 shares</div></div>
+  </div>
+  <div class="scroll-hint">↓ Scroll / use → keys</div>
+</section>
+
+<!-- OVERVIEW -->
+<section id="overview">
+  <div class="eyebrow">The Deal at a Glance</div>
+  <h2>Key IPO Details</h2>
+  <p class="sub">Everything you need to know about the offer, dates and structure.</p>
+  <div class="grid g4">
+    <div class="card"><div class="accentbar"></div><div class="k">IPO Dates</div><div class="v small">9 – 13 Jul 2026</div><div class="note">3-day window</div></div>
+    <div class="card"><div class="accentbar"></div><div class="k">Listing Date</div><div class="v small">Thu, 16 Jul 2026</div><div class="note">BSE + NSE</div></div>
+    <div class="card"><div class="accentbar"></div><div class="k">Issue Type</div><div class="v small">Book-built</div><div class="note">Fresh + OFS</div></div>
+    <div class="card"><div class="accentbar"></div><div class="k">Lot Size</div><div class="v small">70 shares</div><div class="note">₹14,980 / lot</div></div>
+    <div class="card gold"><div class="accentbar"></div><div class="k">Pre-IPO Market Cap</div><div class="v small">₹3,004 Cr</div><div class="note">Post-issue P/E ≈ 19.8x</div></div>
+    <div class="card"><div class="accentbar"></div><div class="k">Anchor Raised</div><div class="v small">₹222.6 Cr</div><div class="note">19 anchors @ ₹214</div></div>
+    <div class="card"><div class="accentbar"></div><div class="k">Lead Managers</div><div class="v small">IIFL &amp; ICICI Sec</div><div class="note">MUFG Intime = Registrar</div></div>
+    <div class="card green"><div class="accentbar"></div><div class="k">Promoter Holding</div><div class="v small">100% → 75.3%</div><div class="note">Goel family</div></div>
+  </div>
+</section>
+
+<!-- BUSINESS -->
+<section id="business">
+  <div class="eyebrow">In Simple Words</div>
+  <h2>What does the company actually do?</h2>
+  <div class="grid g2" style="align-items:start">
+    <div class="card" style="padding:28px">
+      <div class="accentbar"></div>
+      <p class="simple">
+        Think of Laser Power &amp; Infra as a company that <b>makes the "wires and cables"</b> that carry electricity — power cables, conductors, control &amp; instrumentation cables — under the brand <b>“LASER.”</b>
+        <br/><br/>
+        On top of making these products, it also takes up <b>full projects (EPC)</b> — meaning it <b>designs, buys materials and builds</b> the electricity network for towns and villages: laying lines, setting up sub-stations and electrifying rural areas end-to-end.
+        <br/><br/>
+        So it earns money in <b>two ways</b>: (1) selling cables &amp; conductors, and (2) executing turnkey power-infrastructure projects for government utilities &amp; discoms.
+      </p>
+      <div class="chips">
+        <span class="chip">🏭 3 factories · West Bengal</span>
+        <span class="chip">⚡ 85,448 MT capacity</span>
+        <span class="chip">📅 Since 1988 (37 yrs)</span>
+        <span class="chip">🌍 26 states + 10 countries</span>
+      </div>
+    </div>
+    <div class="grid" style="gap:16px">
+      <div class="card green"><div class="accentbar"></div><div class="k">Order Book</div><div class="v">₹3,243 Cr</div><div class="note">Strong revenue visibility (as of Mar 2026)</div></div>
+      <div class="card"><div class="accentbar"></div><div class="k">Two Segments</div><div class="v small">Manufacturing + EPC</div><div class="note">Cables/conductors &amp; turnkey electrification</div></div>
+      <div class="card gold"><div class="accentbar"></div><div class="k">Positioning</div><div class="v small">Leader in East India</div><div class="note">Cables &amp; conductors, pan-India sales</div></div>
+      <div class="card"><div class="accentbar"></div><div class="k">Clients</div><div class="v small">Govt utilities, discoms</div><div class="note">Railways + private EPC majors</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FINANCIALS -->
+<section id="financials">
+  <div class="eyebrow">The Numbers</div>
+  <h2>Financial Performance</h2>
+  <p class="sub">Restated consolidated financials (₹ Crore). Profit has grown strongly — PAT is up ~3.75x in two years — even though FY26 revenue dipped ~9% vs FY25.</p>
+  <div class="grid g4" style="margin-bottom:20px">
+    <div class="card green"><div class="accentbar"></div><div class="k">PAT FY26</div><div class="v">₹151.6 Cr</div><div class="note">▲ 42% YoY</div></div>
+    <div class="card"><div class="accentbar"></div><div class="k">Revenue FY26</div><div class="v">₹2,348 Cr</div><div class="note">▼ 9% YoY</div></div>
+    <div class="card gold"><div class="accentbar"></div><div class="k">EBITDA FY26</div><div class="v">₹301.4 Cr</div><div class="note">Margin 12.96%</div></div>
+    <div class="card"><div class="accentbar"></div><div class="k">Net Worth</div><div class="v">₹725.4 Cr</div><div class="note">Borrowings ₹828 Cr</div></div>
+  </div>
+  <div class="grid g2">
+    <div class="chart-wrap"><h4 style="margin-bottom:14px">Revenue vs PAT (₹ Cr)</h4><div class="chart-box"><canvas id="revPatChart"></canvas></div></div>
+    <div class="chart-wrap"><h4 style="margin-bottom:14px">EBITDA, Net Worth &amp; Borrowings (₹ Cr)</h4><div class="chart-box"><canvas id="ebitdaChart"></canvas></div></div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section id="timeline">
+  <div class="eyebrow">Mark Your Calendar</div>
+  <h2>IPO Timetable</h2>
+  <p class="sub">Tentative schedule from open to listing.</p>
+  <div class="timeline">
+    <div class="tl-step active"><div class="num">1</div><div class="lbl">Opens</div><div class="date">Thu, 9 Jul</div></div>
+    <div class="tl-step active"><div class="num">2</div><div class="lbl">Closes</div><div class="date">Mon, 13 Jul</div></div>
+    <div class="tl-step"><div class="num">3</div><div class="lbl">Allotment</div><div class="date">Tue, 14 Jul</div></div>
+    <div class="tl-step"><div class="num">4</div><div class="lbl">Refunds</div><div class="date">Wed, 15 Jul</div></div>
+    <div class="tl-step"><div class="num">5</div><div class="lbl">Demat Credit</div><div class="date">Wed, 15 Jul</div></div>
+    <div class="tl-step"><div class="num">6</div><div class="lbl">Listing</div><div class="date">Thu, 16 Jul</div></div>
+  </div>
+</section>
+
+<!-- SUBSCRIPTION -->
+<section id="subscription">
+  <div class="eyebrow">Demand Tracker</div>
+  <h2>Subscription Status</h2>
+  <p class="sub">As of end of Day 2 (10 Jul 2026, ~5 PM) the issue was subscribed <b>1.00x</b> overall — a measured, lukewarm response so far. QIBs typically bid on the final day.</p>
+  <div class="chart-wrap">
+    <div class="subrow qib"><div class="name">QIB</div><div class="bar"><span style="width:1%"></span><div class="txt">~0.00x</div></div></div>
+    <div class="subrow nii"><div class="name">NII (HNI)</div><div class="bar"><span style="width:45%"></span><div class="txt">0.45x</div></div></div>
+    <div class="subrow rii"><div class="name">Retail (RII)</div><div class="bar"><span style="width:37%"></span><div class="txt">0.37x</div></div></div>
+    <div class="subrow"><div class="name">Overall</div><div class="bar"><span style="width:100%"></span><div class="txt">1.00x</div></div></div>
+    <p class="note" style="color:var(--muted);font-size:12px;margin-top:14px">Reservation: QIB 50% · NII 15% · Retail 35%. Numbers move fast — verify live before applying.</p>
+  </div>
+</section>
+
+<!-- GMP -->
+<section id="gmp">
+  <div class="eyebrow">Grey Market Signal</div>
+  <h2>GMP &amp; Expected Listing</h2>
+  <p class="sub">GMP is an unofficial, unregulated indicator of listing-day sentiment — treat it as a mood-check, not a guarantee.</p>
+  <div class="grid g3" style="margin-bottom:20px">
+    <div class="card green"><div class="accentbar"></div><div class="k">Latest GMP (10 Jul)</div><div class="v">₹24</div><div class="note">≈ 11% over ₹214</div></div>
+    <div class="card gold"><div class="accentbar"></div><div class="k">Est. Listing Price</div><div class="v">≈ ₹238</div><div class="note">If GMP holds</div></div>
+    <div class="card"><div class="accentbar"></div><div class="k">Est. Gain / Lot</div><div class="v">≈ ₹1,680</div><div class="note">70 shares × ₹24</div></div>
+  </div>
+  <div class="chart-wrap"><h4 style="margin-bottom:14px">GMP Trend (₹ per share)</h4><div class="chart-box" style="height:260px"><canvas id="gmpChart"></canvas></div>
+  <p class="note" style="color:var(--muted);font-size:12px;margin-top:12px">GMP peaked at ₹28 (6 Jul), dipped to ₹15 (9 Jul), and recovered to ₹24 (10 Jul).</p></div>
+</section>
+
+<!-- KPI -->
+<section id="kpi">
+  <div class="eyebrow">Quality of Business</div>
+  <h2>Key Performance Indicators</h2>
+  <p class="sub">Return ratios look healthy; the main watch-item is leverage (Debt/Equity 1.10), which the IPO aims to reduce.</p>
+  <div class="grid g4">
+    <div class="card green"><div class="accentbar"></div><div class="k">ROE</div><div class="v">23.32%</div></div>
+    <div class="card green"><div class="accentbar"></div><div class="k">RoNW</div><div class="v">20.90%</div></div>
+    <div class="card"><div class="accentbar"></div><div class="k">ROCE</div><div class="v">17.83%</div></div>
+    <div class="card gold"><div class="accentbar"></div><div class="k">Debt / Equity</div><div class="v">1.10</div></div>
+    <div class="card"><div class="accentbar"></div><div class="k">PAT Margin</div><div class="v">6.46%</div></div>
+    <div class="card"><div class="accentbar"></div><div class="k">EBITDA Margin</div><div class="v">12.96%</div></div>
+    <div class="card"><div class="accentbar"></div><div class="k">P/E (Post)</div><div class="v">19.82x</div></div>
+    <div class="card"><div class="accentbar"></div><div class="k">Price / Book</div><div class="v">3.39</div></div>
+  </div>
+
+  <h2 style="margin-top:44px">Objects of the Issue</h2>
+  <p class="sub">The fresh-issue money is used mainly to cut debt — which lowers interest cost and boosts future profits.</p>
+  <div class="obj"><div class="ic">💳</div><div><b>Debt repayment / pre-payment</b><div class="note" style="color:var(--muted);font-size:13px">Paying off ~59% of borrowings → lower finance costs</div></div><div class="amt">₹490 Cr</div></div>
+  <div class="obj"><div class="ic">🏢</div><div><b>General corporate purposes</b><div class="note" style="color:var(--muted);font-size:13px">Balance of net proceeds + issue expenses</div></div><div class="amt">Balance</div></div>
+</section>
+
+<!-- VERDICT -->
+<section id="verdict">
+  <div class="eyebrow">The Bottom Line</div>
+  <h2>Should You Apply?</h2>
+  <div class="verdict">
+    <span class="badge">✅ APPLY — for listing gains + long term</span>
+    <h3>Verdict: Subscribe (moderate conviction)</h3>
+    <p class="simple" style="font-size:16px">
+      The issue is <b>reasonably priced</b> (post-issue P/E ~19.8x vs larger peers), profits are <b>growing fast (PAT +42%)</b>, return ratios are <b>strong (ROE ~23%)</b>, and a <b>₹3,243 Cr order book</b> gives revenue visibility. Using the money to <b>slash debt</b> should lift future earnings. A positive <b>GMP (~11%)</b> and a <b>Subscribe</b> tilt from most brokers (8 Subscribe / 1 May Apply / 2 Neutral) support applying.
+    </p>
+    <div class="rating-line">
+      <div class="rt sub"><b>8</b><span>Subscribe</span></div>
+      <div class="rt neu"><b>1</b><span>May Apply</span></div>
+      <div class="rt neu"><b>2</b><span>Neutral</span></div>
+      <div class="rt avoid"><b>0</b><span>Avoid</span></div>
+    </div>
+
+    <div class="two-col">
+      <div class="box pro">
+        <h4>👍 Why YES (Strengths)</h4>
+        <ul>
+          <li>PAT up ~42% YoY; ~3.75x growth over 2 years</li>
+          <li>Strong return ratios: ROE 23.3%, RoNW 20.9%</li>
+          <li>Reasonable valuation vs larger listed peers</li>
+          <li>₹3,243 Cr order book = revenue visibility</li>
+          <li>₹490 Cr debt repayment → lower interest cost</li>
+          <li>Leader in East India; backward-integrated, 37-yr track record</li>
+          <li>Healthy GMP (~11%) &amp; broad broker "Subscribe"</li>
+        </ul>
+      </div>
+      <div class="box con">
+        <h4>👎 Why to be CAUTIOUS (Risks)</h4>
+        <ul>
+          <li>FY26 revenue fell ~9% YoY — growth not linear</li>
+          <li>High leverage: Debt/Equity 1.10 (even post-issue)</li>
+          <li>Thin PAT margin (~6.5%) — EPC is competitive</li>
+          <li>Customer concentration (govt utilities/discoms)</li>
+          <li>Execution &amp; raw-material (aluminium/copper) price risk</li>
+          <li>Lukewarm subscription so far (~1.0x by Day 2)</li>
+          <li>Issue looks "fully priced" per some analysts</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="horizon">
+      <div class="h-card">
+        <span class="tag short">Short Term</span>
+        <p class="simple" style="font-size:15px">Modest listing pop likely if GMP (~11%) holds. <b>Apply for listing gains, but keep expectations measured</b> — muted subscription means gains aren't guaranteed. Book profits on a strong open if you're a trader.</p>
+      </div>
+      <div class="h-card">
+        <span class="tag long">Long Term</span>
+        <p class="simple" style="font-size:15px"><b>The better fit.</b> Post-issue de-leveraging + strong order book + India's power capex cycle can compound earnings. Suits investors comfortable holding through EPC/commodity cycles. Dilip Davda: "park funds for medium to long term."</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p style="font-size:16px;margin-bottom:14px">
+    <a href="https://www.youtube.com/@TheSalariedInvestorYT" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:10px;color:var(--text);font-weight:800;text-decoration:none">
+      <img src="../../logo.png" alt="The Salaried Investor" style="width:34px;height:34px;border-radius:50%;object-fit:cover;background:#f5efe2" />
+      The Salaried Investor — Wealth Journey
+    </a>
+  </p>
+  <p><b>Sources:</b>
+    <a href="https://www.chittorgarh.com/ipo/laser-power-infra-ipo/2654/" target="_blank" rel="noopener noreferrer">Chittorgarh</a> ·
+    <a href="https://www.investorgain.com/gmp/laser-power-infra-ipo-gmp/1923/" target="_blank" rel="noopener noreferrer">InvestorGain</a> ·
+    Economic Times · Business Today · LiveMint · Business Standard · Company website (laserpowerinfra.com)
+  </p>
+  <p class="disclaimer">
+    <b>Disclaimer:</b> This deck is for information &amp; presentation purposes only and is <b>not investment advice or a recommendation to buy/sell</b> any security. IPO data, GMP and subscription figures are dynamic and were captured on <b>10 July 2026</b>; verify live figures before acting. GMP is an unofficial, unregulated market indicator. Investments in securities are subject to market risks — read the RHP and consult a SEBI-registered advisor before investing.
+  </p>
+</footer>
+
+<script>
+  // progress bar
+  const prog = document.getElementById('progress');
+  window.addEventListener('scroll',()=>{
+    const h=document.documentElement.scrollHeight-window.innerHeight;
+    prog.style.width=(window.scrollY/h*100)+'%';
+  });
+
+  // arrow-key section navigation (presentation mode)
+  const secs=[...document.querySelectorAll('section')];
+  let idx=0;
+  document.addEventListener('keydown',e=>{
+    if(e.key==='ArrowRight'||e.key==='PageDown'){idx=Math.min(idx+1,secs.length-1);secs[idx].scrollIntoView({behavior:'smooth'});}
+    if(e.key==='ArrowLeft'||e.key==='PageUp'){idx=Math.max(idx-1,0);secs[idx].scrollIntoView({behavior:'smooth'});}
+  });
+  const io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting)idx=secs.indexOf(en.target);}),{threshold:.5});
+  secs.forEach(s=>io.observe(s));
+
+  // ---- Charts ----
+  const gridColor='rgba(255,255,255,.06)', tickColor='#8b97ad';
+  Chart.defaults.color=tickColor; Chart.defaults.font.family='Segoe UI';
+  const years=['FY24','FY25','FY26'];
+
+  new Chart(document.getElementById('revPatChart'),{
+    type:'bar',
+    data:{labels:years,datasets:[
+      {label:'Total Income',data:[1763.65,2592.53,2347.89],backgroundColor:'rgba(59,130,246,.75)',borderRadius:6},
+      {label:'PAT',data:[40.41,106.75,151.59],backgroundColor:'rgba(22,199,132,.9)',borderRadius:6,yAxisID:'y1'}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{position:'bottom'}},
+      scales:{
+        x:{grid:{color:gridColor}},
+        y:{grid:{color:gridColor},title:{display:true,text:'Total Income'}},
+        y1:{position:'right',grid:{drawOnChartArea:false},title:{display:true,text:'PAT'}}
+      }}
+  });
+
+  new Chart(document.getElementById('ebitdaChart'),{
+    type:'line',
+    data:{labels:years,datasets:[
+      {label:'EBITDA',data:[156.10,250.39,301.44],borderColor:'#f5b301',backgroundColor:'rgba(245,179,1,.15)',fill:true,tension:.35,borderWidth:3,pointRadius:4},
+      {label:'Net Worth',data:[473.44,574.58,725.41],borderColor:'#16c784',backgroundColor:'rgba(22,199,132,.12)',fill:true,tension:.35,borderWidth:3,pointRadius:4},
+      {label:'Total Borrowing',data:[393.75,502.95,828.23],borderColor:'#ea3943',backgroundColor:'rgba(234,57,67,.12)',fill:true,tension:.35,borderWidth:3,pointRadius:4}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{position:'bottom'}},
+      scales:{x:{grid:{color:gridColor}},y:{grid:{color:gridColor}}}}
+  });
+
+  new Chart(document.getElementById('gmpChart'),{
+    type:'line',
+    data:{labels:['6 Jul','7 Jul','8 Jul','9 Jul','10 Jul'],datasets:[
+      {label:'GMP (₹)',data:[28,22,18,15,24],borderColor:'#c8971f',backgroundColor:'rgba(200,151,31,.18)',fill:true,tension:.35,borderWidth:3,pointRadius:5,pointBackgroundColor:'#e6bd57'}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false}},
+      scales:{x:{grid:{color:gridColor}},y:{grid:{color:gridColor},suggestedMin:0,suggestedMax:35}}}
+  });
+</script>
+</body>
+</html>
