@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>IPO Decks — Interactive Investor Snapshots</title>
+<style>
+  :root{
+    --bg:#0a1223;--panel:#0f1c33;--panel2:#13243f;--brand:#c8971f;--brand2:#e6bd57;
+    --accent:#e6bd57;--green:#16c784;--text:#eef2f8;--muted:#94a3bd;--border:#1e3253;
+    --shadow:0 20px 60px rgba(0,0,0,.5);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:"Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;
+    background:radial-gradient(1200px 800px at 80% -10%,#183258 0,var(--bg) 55%);
+    color:var(--text);line-height:1.5;min-height:100vh;-webkit-font-smoothing:antialiased;
+  }
+  a{text-decoration:none;color:inherit}
+  .wrap{max-width:1080px;margin:0 auto;padding:70px 28px 80px}
+  /* header */
+  .head{display:flex;align-items:center;gap:16px;margin-bottom:10px}
+  .head{text-decoration:none}
+  .logo-img{width:64px;height:64px;border-radius:50%;flex:0 0 auto;object-fit:cover;
+    box-shadow:0 6px 20px rgba(230,189,87,.3);background:#f5efe2}
+  .brand-name{font-size:20px;font-weight:900;color:#fff;line-height:1.1}
+  .eyebrow{color:var(--brand2);font-weight:800;letter-spacing:3px;font-size:12px;text-transform:uppercase}
+  .yt-badge{display:inline-flex;align-items:center;gap:8px;background:#ff0000;color:#fff;font-weight:800;
+    font-size:13px;padding:9px 16px;border-radius:10px;text-decoration:none;transition:.2s;margin-bottom:30px}
+  .yt-badge:hover{filter:brightness(1.1)}
+  h1{font-size:clamp(30px,5vw,50px);font-weight:900;letter-spacing:-1px;line-height:1.05;margin:14px 0 10px}
+  .sub{color:var(--muted);max-width:640px;font-size:16px;margin-bottom:40px}
+  /* grid */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+  .card{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--border);
+    border-radius:18px;padding:24px;box-shadow:var(--shadow);transition:.25s;position:relative;
+    display:flex;flex-direction:column;gap:14px;overflow:hidden}
+  .card:hover{transform:translateY(-6px);border-color:#2e3d57}
+  .card .accent{position:absolute;top:0;left:0;height:100%;width:5px;background:var(--brand)}
+  .card.green .accent{background:var(--green)}
+  .card .status{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:800;
+    letter-spacing:1px;text-transform:uppercase;padding:5px 12px;border-radius:999px;align-self:flex-start}
+  .status.live{background:rgba(22,199,132,.14);color:var(--green)}
+  .status.soon{background:rgba(245,179,1,.14);color:var(--accent)}
+  .status.closed{background:rgba(139,151,173,.16);color:var(--muted)}
+  .dot{width:7px;height:7px;border-radius:50%;background:currentColor;animation:pulse 1.6s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 currentColor}70%{box-shadow:0 0 0 6px transparent}100%{box-shadow:0 0 0 0 transparent}}
+  .card h3{font-size:22px;font-weight:850;letter-spacing:-.3px}
+  .card .desc{color:var(--muted);font-size:14px;flex:1}
+  .meta{display:flex;gap:8px;flex-wrap:wrap}
+  .tag{background:#0c1320;border:1px solid var(--border);padding:6px 11px;border-radius:8px;font-size:12px;font-weight:700}
+  .tag b{color:var(--accent)}
+  .go{display:inline-flex;align-items:center;gap:8px;font-weight:800;color:var(--brand2);font-size:14px;margin-top:4px}
+  .card:hover .go{gap:12px}
+  /* add-your-own hint card */
+  .card.add{border-style:dashed;align-items:center;justify-content:center;text-align:center;color:var(--muted);min-height:200px}
+  .card.add .plus{font-size:34px;margin-bottom:8px;color:var(--brand2)}
+  footer{border-top:1px solid var(--border);margin-top:56px;padding-top:24px;color:var(--muted);font-size:12px;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="head" href="https://www.youtube.com/@TheSalariedInvestorYT" target="_blank" rel="noopener noreferrer">
+    <img class="logo-img" src="../logo.png" alt="The Salaried Investor logo" />
+    <div>
+      <div class="eyebrow">Interactive Investor Decks</div>
+      <div class="brand-name">The Salaried Investor <span style="color:var(--brand2)">— Wealth Journey</span></div>
+    </div>
+  </a>
+
+  <h1>IPO Snapshots</h1>
+  <p class="sub">Clean, presentation-ready breakdowns of Indian IPOs — business, financials, GMP, subscription and a clear verdict. Click any card to open the full deck.</p>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:30px">
+    <a href="../" style="display:inline-flex;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--border);color:var(--text);font-weight:700;font-size:13px;padding:10px 16px;border-radius:10px;text-decoration:none">← Home</a>
+    <a class="yt-badge" style="margin-bottom:0" href="https://www.youtube.com/@TheSalariedInvestorYT" target="_blank" rel="noopener noreferrer">▶ Subscribe on YouTube</a>
+  </div>
+
+  <div class="grid">
+
+    <!-- ===== IPO CARD: Laser Power & Infra ===== -->
+    <a class="card green" href="laser-power-infra/">
+      <div class="accent"></div>
+      <span class="status live"><span class="dot"></span> Live · closes 13 Jul</span>
+      <h3>Laser Power &amp; Infra</h3>
+      <p class="desc">Kolkata-based power cables, conductors &amp; EPC player. ₹742 Cr mainboard IPO with strong PAT growth and debt-reduction plan.</p>
+      <div class="meta">
+        <span class="tag">Band <b>₹203–214</b></span>
+        <span class="tag">GMP <b>₹24</b></span>
+        <span class="tag">Verdict <b>Apply</b></span>
+      </div>
+      <span class="go">Open deck →</span>
+    </a>
+
+    <!-- ===== TEMPLATE: copy this block for each new IPO =====
+    <a class="card" href="FOLDER-NAME/">
+      <div class="accent"></div>
+      <span class="status soon">Opens soon</span>   // classes: live / soon / closed
+      <h3>Company Name</h3>
+      <p class="desc">One-line description of the business and the offer.</p>
+      <div class="meta">
+        <span class="tag">Band <b>₹xxx–xxx</b></span>
+        <span class="tag">GMP <b>₹xx</b></span>
+        <span class="tag">Verdict <b>Apply / Avoid</b></span>
+      </div>
+      <span class="go">Open deck →</span>
+    </a>
+    ================================================= -->
+
+    <!-- placeholder hint card (delete once you have a few) -->
+    <div class="card add">
+      <div>
+        <div class="plus">＋</div>
+        More IPO decks coming soon.<br/>
+        <span style="font-size:12px">Add a new folder under <code>/ipo/</code> and copy the card template in this file.</span>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <p style="margin-bottom:10px"><b>The Salaried Investor — Wealth Journey</b> · <a href="https://www.youtube.com/@TheSalariedInvestorYT" target="_blank" rel="noopener noreferrer" style="color:var(--brand2);text-decoration:none">youtube.com/@TheSalariedInvestorYT</a></p>
+    Built for presentation &amp; information purposes only — <b>not investment advice</b>. IPO data (GMP, subscription) is dynamic; verify live figures before acting. Investments in securities are subject to market risks.
+  </footer>
+</div>
+</body>
+</html>
