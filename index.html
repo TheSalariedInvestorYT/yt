@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Salaried Investor — Wealth Journey</title>
+<style>
+  :root{
+    --bg:#0a1223;--panel:#0f1c33;--panel2:#13243f;--brand:#c8971f;--brand2:#e6bd57;
+    --accent:#e6bd57;--green:#16c784;--text:#eef2f8;--muted:#94a3bd;--border:#1e3253;
+    --shadow:0 20px 60px rgba(0,0,0,.5);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:"Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;
+    background:radial-gradient(1200px 800px at 80% -10%,#183258 0,var(--bg) 55%);
+    color:var(--text);line-height:1.5;min-height:100vh;-webkit-font-smoothing:antialiased;
+  }
+  a{text-decoration:none;color:inherit}
+  .wrap{max-width:1080px;margin:0 auto;padding:64px 28px 80px}
+  /* hero */
+  .hero{text-align:center;margin-bottom:56px}
+  .logo-img{width:120px;height:120px;border-radius:50%;object-fit:cover;background:#f5efe2;
+    box-shadow:0 10px 40px rgba(230,189,87,.35);margin-bottom:22px}
+  .hero h1{font-size:clamp(30px,6vw,52px);font-weight:900;letter-spacing:-1px;line-height:1.05}
+  .hero h1 span{color:var(--brand2)}
+  .hero .tag{color:var(--muted);font-size:18px;margin-top:14px;max-width:600px;margin-inline:auto}
+  .yt-badge{display:inline-flex;align-items:center;gap:8px;background:#ff0000;color:#fff;font-weight:800;
+    font-size:14px;padding:11px 20px;border-radius:12px;margin-top:24px;transition:.2s}
+  .yt-badge:hover{filter:brightness(1.1);transform:translateY(-2px)}
+  /* section grid */
+  .sec-title{text-align:center;font-size:14px;letter-spacing:3px;text-transform:uppercase;color:var(--brand2);font-weight:800;margin-bottom:24px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+  .card{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--border);
+    border-radius:18px;padding:28px;box-shadow:var(--shadow);transition:.25s;position:relative;
+    display:flex;flex-direction:column;gap:12px;overflow:hidden;min-height:190px}
+  .card.live:hover{transform:translateY(-6px);border-color:var(--brand)}
+  .card.soon{opacity:.72;cursor:default}
+  .card .ic{width:54px;height:54px;border-radius:14px;display:grid;place-items:center;font-size:26px;
+    background:rgba(230,189,87,.14);border:1px solid var(--border)}
+  .card h3{font-size:22px;font-weight:850}
+  .card p{color:var(--muted);font-size:14px;flex:1}
+  .status{position:absolute;top:18px;right:18px;font-size:10.5px;font-weight:800;letter-spacing:1px;
+    text-transform:uppercase;padding:5px 11px;border-radius:999px}
+  .status.on{background:rgba(22,199,132,.16);color:var(--green)}
+  .status.off{background:rgba(148,163,189,.16);color:var(--muted)}
+  .go{display:inline-flex;align-items:center;gap:8px;font-weight:800;color:var(--brand2);font-size:14px}
+  .card.live:hover .go{gap:12px}
+  footer{border-top:1px solid var(--border);margin-top:60px;padding-top:26px;text-align:center;color:var(--muted);font-size:12px;line-height:1.7}
+  footer a{color:var(--brand2)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <img class="logo-img" src="logo.png" alt="The Salaried Investor logo" />
+    <h1>The Salaried Investor<br/><span>Wealth Journey</span></h1>
+    <p class="tag">Simple, honest breakdowns of IPOs, mutual funds and investing — made for the everyday salaried investor building wealth, one step at a time.</p>
+    <a class="yt-badge" href="https://www.youtube.com/@TheSalariedInvestorYT" target="_blank" rel="noopener noreferrer">▶ Subscribe on YouTube</a>
+  </div>
+
+  <!-- SECTIONS -->
+  <div class="sec-title">Explore</div>
+  <div class="grid">
+
+    <!-- IPO (LIVE) -->
+    <a class="card live" href="ipo/">
+      <span class="status on">Live</span>
+      <div class="ic">📈</div>
+      <h3>IPO Snapshots</h3>
+      <p>Interactive, presentation-ready IPO decks — business, financials, GMP, subscription &amp; a clear verdict.</p>
+      <span class="go">Explore IPOs →</span>
+    </a>
+
+    <!-- MUTUAL FUNDS (SOON) -->
+    <div class="card soon">
+      <span class="status off">Coming soon</span>
+      <div class="ic">🏦</div>
+      <h3>Mutual Funds</h3>
+      <p>Fund reviews, SIP breakdowns and portfolio ideas for long-term wealth creation.</p>
+      <span class="go" style="color:var(--muted)">Coming soon</span>
+    </div>
+
+    <!-- STOCKS (SOON) -->
+    <div class="card soon">
+      <span class="status off">Coming soon</span>
+      <div class="ic">📊</div>
+      <h3>Stocks &amp; Equity</h3>
+      <p>Company deep-dives and simple equity research for the busy salaried investor.</p>
+      <span class="go" style="color:var(--muted)">Coming soon</span>
+    </div>
+
+    <!-- PERSONAL FINANCE (SOON) -->
+    <div class="card soon">
+      <span class="status off">Coming soon</span>
+      <div class="ic">💰</div>
+      <h3>Personal Finance</h3>
+      <p>Tax, savings, insurance and money habits explained without the jargon.</p>
+      <span class="go" style="color:var(--muted)">Coming soon</span>
+    </div>
+
+  </div>
+
+  <footer>
+    <p><b>The Salaried Investor — Wealth Journey</b> · <a href="https://www.youtube.com/@TheSalariedInvestorYT" target="_blank" rel="noopener noreferrer">youtube.com/@TheSalariedInvestorYT</a></p>
+    <p>For information &amp; educational purposes only — not investment advice. Markets are subject to risk; verify data and consult a SEBI-registered advisor before investing.</p>
+  </footer>
+
+</div>
+</body>
+</html>
